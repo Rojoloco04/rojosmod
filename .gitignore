@@ -1,0 +1,35 @@
+# Eclipse IDE
+bin/
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+.eclipse/
+
+# IntelliJ IDEA
+out/
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# Gradle
+build/
+.gradle/
+
+# Minecraft run directories
+run/
+run-data/
+
+# Forge MDK boilerplate (not your code)
+forge*changelog.txt
+CREDITS.txt
+README.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

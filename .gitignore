@@ -25,7 +25,7 @@ run-data/
 # Forge MDK boilerplate (not your code)
 forge*changelog.txt
 CREDITS.txt
-README.txt
+note.txt
 
 # OS
 .DS_Store

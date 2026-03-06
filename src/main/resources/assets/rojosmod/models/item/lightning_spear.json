@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "rojosmod:item/lightning_spear"
+  }
+}

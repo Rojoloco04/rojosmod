@@ -1,57 +1,117 @@
 package com.rojosmod;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(RojosMod.MODID)
-public final class RojosMod {
+import com.mojang.logging.LogUtils;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+// The value here should match an entry in the META-INF/neoforge.mods.toml file
+@Mod(rojosmod.MODID)
+public class rojosmod {
+    // Define mod id in a common place for everything to reference
     public static final String MODID = "rojosmod";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    // Directly reference a slf4j logger
+    public static final Logger LOGGER = LogUtils.getLogger();
+    // Create a Deferred Register to hold Blocks which will all be registered under the "rojosmod" namespace
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    // Create a Deferred Register to hold Items which will all be registered under the "rojosmod" namespace
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "rojosmod" namespace
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public RojosMod(FMLJavaModLoadingContext context) {
-        var modBusGroup = context.getModBusGroup();
+    // Creates a new Block with the id "rojosmod:example_block", combining the namespace and path
+    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", p -> p.mapColor(MapColor.STONE));
+    // Creates a new BlockItem with the id "rojosmod:example_block", combining the namespace and path
+    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
 
-        // Register our items and entity types.
-        // In this version of Forge, DeferredRegister.register() takes the BusGroup
-        // (not an IEventBus) — it hooks into the registration events automatically.
-        ModItems.ITEMS.register(modBusGroup);
-        ModEntities.ENTITIES.register(modBusGroup);
+    // Creates a new food item with the id "rojosmod:example_id", nutrition 1 and saturation 2
+    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", p -> p.food(new FoodProperties.Builder()
+            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
 
-        // Common setup hook
-        FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
+    // Creates a creative tab with the id "rojosmod:example_tab" for the example item, that is placed after the combat tab
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.rojosmod")) //The language key for the title of your CreativeModeTab
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
 
-        // Config registration (keep if you still have Config.java)
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    // The constructor for the mod class is the first code that is run when your mod is loaded.
+    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
+    public rojosmod(IEventBus modEventBus, ModContainer modContainer) {
+        // Register the commonSetup method for modloading
+        modEventBus.addListener(this::commonSetup);
+
+        // Register the Deferred Register to the mod event bus so blocks get registered
+        BLOCKS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so items get registered
+        ITEMS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so tabs get registered
+        CREATIVE_MODE_TABS.register(modEventBus);
+
+        // Register ourselves for server and other game events we are interested in.
+        // Note that this is necessary if and only if we want *this* class (rojosmod) to respond directly to events.
+        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
+        NeoForge.EVENT_BUS.register(this);
+
+        // Register the item to a creative tab
+        modEventBus.addListener(this::addCreative);
+
+        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.info("{}: common setup", MODID);
+    private void commonSetup(FMLCommonSetupEvent event) {
+        // Some common setup code
+        LOGGER.info("HELLO FROM COMMON SETUP");
+
+        if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
+            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
+        }
+
+        LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
+
+        Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            LOGGER.info("{}: client setup", MODID);
+    // Add the example block item to the building blocks tab
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(EXAMPLE_BLOCK_ITEM);
         }
+    }
 
-        // Registers a renderer for our custom projectile entity.
-        // Without this, Minecraft crashes when it tries to render the spear in the world
-        // because it has no idea how to draw it. ThrownItemRenderer reuses the item's
-        // model and texture, so the spear looks like the lightning_spear item when flying.
-        @SubscribeEvent
-        public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerEntityRenderer(ModEntities.LIGHTNING_SPEAR.get(), ThrownItemRenderer::new);
-        }
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event) {
+        // Do something when the server starts
+        LOGGER.info("HELLO from server starting");
     }
 }

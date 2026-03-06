@@ -1,38 +1,26 @@
-# Eclipse IDE
-bin/
+# eclipse
+bin
 *.launch
-.settings/
-.metadata/
+.settings
+.metadata
 .classpath
 .project
-.eclipse/
 
-# IntelliJ IDEA
-out/
+# idea
+out
 *.ipr
 *.iws
 *.iml
-.idea/
+.idea
 
-# Gradle
-build/
-.gradle/
+# gradle
+build
+.gradle
 
-# Minecraft run directories
-run/
-run-data/
+# other
+eclipse
+run
+runs
+run-data
 
-# Forge MDK boilerplate (not your code)
-forge*changelog.txt
-CREDITS.txt
-note.txt
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Claude settings
-.claude
+repo

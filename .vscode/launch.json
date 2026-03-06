@@ -1,0 +1,93 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - rojomod",
+        "order": 0
+      },
+      "projectName": "rojomod",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003drojosmod%%C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Data",
+      "presentation": {
+        "group": "Mod Development - rojomod",
+        "order": 1
+      },
+      "projectName": "rojomod",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\dataRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003drojosmod%%C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - rojomod",
+        "order": 2
+      },
+      "projectName": "rojomod",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003drojosmod%%C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - rojomod",
+        "order": 3
+      },
+      "projectName": "rojomod",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003drojosmod%%C:\\Users\\jacks\\Desktop\\Coding\\rojomod\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}

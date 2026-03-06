@@ -1,4 +1,4 @@
-package com.rojosmod;
+package io.github.rojoloco04.rojosmod;
 
 import org.slf4j.Logger;
 

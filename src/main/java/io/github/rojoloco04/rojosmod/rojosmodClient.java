@@ -1,4 +1,4 @@
-package com.rojosmod;
+package io.github.rojoloco04.rojosmod;
 
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;

@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python3 -c \":*)",
-      "Bash(ls -la \"/c/Users/jacks/.gradle/caches/neoformruntime/intermediate_results/decompile_\"*\"_output.jar\")"
-    ]
-  }
-}

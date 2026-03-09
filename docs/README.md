@@ -24,13 +24,10 @@ A throwable copper spear. Hold right-click to charge, release to throw.
 - **Unbreaking / Mending:** Supported
 - **Sounds:** Trident throw / hit / hit-ground
 
-**Crafting (3×3):**
+**Crafting:**
 
-```
-  [Copper Ingot] [Nether Star]
-  [Stick]        [Copper Ingot]
-  [Stick]
-```
+<img width="602" height="286" alt="image" src="https://github.com/user-attachments/assets/cdae8184-7e5e-4eef-bd35-d98c1762e671" />
+
 
 ## Development
 

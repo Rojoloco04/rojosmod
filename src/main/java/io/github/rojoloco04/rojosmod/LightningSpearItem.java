@@ -58,7 +58,7 @@ public class LightningSpearItem extends Item {
                 )));
     }
 
-    // Prevent block breaking in creative mode (swords and axes allow it by default)
+    // Prevent block breaking in creative mode
     @Override
     public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos pos, LivingEntity entity) {
         return !(entity instanceof Player player && player.isCreative());

@@ -51,6 +51,7 @@ public class rojosmod {
             .build()
     );
 
+    // mod constructor
     public rojosmod(IEventBus modEventBus, ModContainer modContainer) {
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);

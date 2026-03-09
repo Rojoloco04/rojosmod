@@ -48,7 +48,7 @@ public class LightningSpearModel extends Model<Unit> {
                 .texOffs(8, 1).addBox(-1.0F, -2.0F, -6.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)),  // tip point
             PartPose.ZERO);
 
-        // Tip side pieces, rotated 90° around Y
+        // Tip side pieces, rotated 90° around Y because I copied the tip point
         bb_main.addOrReplaceChild("cube_r1",
             CubeListBuilder.create()
                 .texOffs(15, 1).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)),

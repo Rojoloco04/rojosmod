@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CN",
+    " SC",
+    "S  "
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "N": "minecraft:nether_star",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "rojosmod:lightning_spear",
+    "count": 1
+  }
+}

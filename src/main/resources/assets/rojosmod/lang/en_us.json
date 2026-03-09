@@ -1,14 +1,4 @@
 {
     "itemGroup.rojosmod": "Rojo's Mod",
-    "block.rojosmod.example_block": "Example Block",
-    "item.rojosmod.snack": "Snack",
-    "item.rojosmod.lightning_spear": "Lightning Spear",
-
-    "rojosmod.configuration.title": "rojosmod Configs",
-    "rojosmod.configuration.section.rojosmod.common.toml": "rojosmod Configs",
-    "rojosmod.configuration.section.rojosmod.common.toml.title": "rojosmod Configs",
-    "rojosmod.configuration.items": "Item List",
-    "rojosmod.configuration.logDirtBlock": "Log Dirt Block",
-    "rojosmod.configuration.magicNumberIntroduction": "Magic Number Text",
-    "rojosmod.configuration.magicNumber": "Magic Number"
+    "item.rojosmod.lightning_spear": "Lightning Spear"
 }
